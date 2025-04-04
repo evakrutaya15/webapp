@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f5f5f5;
+    }
+
+    .form-container {
+      background-color: #f0f4ff;
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .abstract-lilac {
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+    }
+
+    .abstract-lilac img {
+      width: 200px;
+      height: 100%;
+    }
+
+    .form-container h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .form-container input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .form-container input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .form-container .password-field {
+      position: relative;
+    }
+
+    .form-container .password-field input {
+      width: 100%;
+    }
+
+    .form-container .password-field .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      font-size: 16px;
+      color: #000; /* Black for strict appearance */
+    }
+
+    .form-container button {
+      background-color: #000;
+      color: #fff;
+      padding: 15px; /* Increased padding for a larger button */
+      border: none;
+      border-radius: 8px;
+      font-size: 18px; /* Increased font size */
+      cursor: pointer;
+    }
+
+    .form-container button:hover {
+      background-color: #333;
+    }
+
+    .form-container p {
+      font-size: 12px;
+      color: #666;
+      margin-top: 15px;
+    }
+
+    .form-container p a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .form-container p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="abstract-lilac">
+      <img src="C:\Users\sobak\OneDrive\Рабочий стол\helpapp\lilac.png" alt="Abstract Stars">
+    </div>
+    <h1>Create account</h1>
+    <form>
+      <input type="text" placeholder="First Name" required>
+      <input type="text" placeholder="Last Name" required>
+      <input type="email" placeholder="Email address" required>
+      <input type="tel" placeholder="Phone Number" required>
+      <div class="password-field">
+        <input type="password" placeholder="Password" required>
+        <span class="toggle-password">🔒</span>
+      </div>
+      <div class="password-field">
+        <input type="password" placeholder="Confirm password" required>
+        <span class="toggle-password">🔒</span>
+      </div>
+      <button type="submit">Create account</button>
+    </form>
+    <p>By creating an account or signing up you agree to our <a href="#">Terms and Conditions</a></p>
+  </div>
+
+  <script>
+    const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+    togglePasswordButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const input = button.previousElementSibling;
+        if (input.type === 'password') {
+          input.type = 'text';
+          button.textContent = '🔓'; // Unlock icon
+        } else {
+          input.type = 'password';
+          button.textContent = '🔒'; // Lock icon
+        }
+      });
+    });
+  </script>
+</body>
+</html>
