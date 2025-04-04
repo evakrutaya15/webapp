@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <!-- Include Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #d5f5e3, #d1f2eb, #d4efdf);
+    }
+
+    .form-container {
+      background-color: #ffffff;
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 80px;
+      color: #28a745;
+    }
+
+    .form-container h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-container input {
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 16px;
+      background-color: #f9f9f9;
+    }
+
+    .form-container input:focus {
+      outline: none;
+      border-color: #28a745;
+      background-color: #fff;
+    }
+
+    .form-container button {
+      background-color: #28a745;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .form-container button:hover {
+      background-color: #218838;
+    }
+
+    .form-container p {
+      font-size: 14px;
+      color: #666;
+      margin-top: 15px;
+    }
+
+    .form-container p a {
+      color: #28a745;
+      text-decoration: none;
+    }
+
+    .form-container p a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="icon">
+      <i class="fa-solid fa-user-shield"></i> <!-- Security-related icon -->
+    </div>
+    <h1>Login</h1>
+    <form id="login-form">
+      <input type="email" name="email" placeholder="Email Address" required>
+      <div class="password-field">
+        <input type="password" name="password" placeholder="Password" required>
+      </div>
+      <button type="submit">Login</button>
+    </form>
+    <p><a href="#">Forgot Password?</a></p>
+    <p>Don't have an account? <a href="app.html">Register</a></p>
+  </div>
+
+  <script>
+    const form = document.getElementById('login-form');
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const data = {
+        email: formData.get('email'),
+        password: formData.get('password')
+      };
+      
+      try {
+        const response = await fetch('http://localhost:3001/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message); // Login successful
+          // Optionally, redirect to the dashboard or other page
+          // window.location.href = 'dashboard.html';
+        } else {
+          alert(result.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
