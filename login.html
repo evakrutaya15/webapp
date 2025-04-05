@@ -102,7 +102,7 @@
 <body>
   <div class="form-container">
     <div class="icon">
-      <i class="fa-solid fa-user-shield"></i> <!-- Security-related icon -->
+      <i class="fa-solid fa-user-shield"></i>
     </div>
     <h1>Login</h1>
     <form id="login-form">
@@ -138,10 +138,9 @@
         const result = await response.json();
         if (response.ok) {
           alert(result.message); // Login successful
-          // Optionally, redirect to the dashboard or other page
-          // window.location.href = 'dashboard.html';
+          window.location.href = 'homepage.html'; // Redirect to homepage on successful login
         } else {
-          alert(result.message);
+          alert(result.error); // Show error message
         }
       } catch (error) {
         console.error('Error:', error);

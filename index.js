@@ -26,7 +26,6 @@ app.post('/register', async (req, res) => {
       const existingUser = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
       
       if (existingUser.rows.length > 0) {
-        // Custom error message if email already exists
         return res.status(400).json({ error: 'Your account is already created. Please log in.' });
       }
   
@@ -41,11 +40,43 @@ app.post('/register', async (req, res) => {
   
       res.status(201).json(result.rows[0]);
     } catch (error) {
-      // Catch PostgreSQL errors and handle them properly
       if (error.code === '23505') { // Unique constraint violation
         res.status(400).json({ error: 'Your account is already created. Please log in.' });
       } else {
         res.status(500).json({ error: error.message });
       }
     }
-  });  
+  });
+
+// Login endpoint
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        // Check if the user exists
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+
+        if (result.rows.length === 0) {
+            return res.status(400).json({ error: 'No account found with this email. Please register.' });
+        }
+
+        const user = result.rows[0];
+        
+        // Compare the hashed password with the provided password
+        const validPassword = await bcrypt.compare(password, user.password);
+        
+        if (!validPassword) {
+            return res.status(401).json({ error: 'Invalid password. Please try again.' });
+        }
+
+        // Successful login
+        res.status(200).json({ message: 'Login successful!' });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+const PORT = 3001;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}); 
